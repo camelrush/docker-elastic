@@ -17,12 +17,15 @@ services:
       - "5601:5601"
     environment:
       - ELASTICSEARCH_HOSTS=["http://elasticsearch:9200"]
+    depends_on:
+      - elasticsearch
   filebeat:
-    image: docker.elastic.co/beats/filebeat:7.17.7
+    build: 
+      context: filebeat/
     container_name: filebeat-7.17.7
     volumes:
-      - ./fs-logs/conf/filebeat.yml:/etc/filebeat/filebeat.yml
-      - ./fs-logs/log/inputlog:/var/log/fb-logs
-      - ./fs-logs/log/filebeat:/var/log/filebeat
+      - ./filebeat/logs:/usr/share/filebeat/logs
     environment:
       - ELASTICSEARCH_HOSTS="elasticsearch:9200"
+    depends_on:
+      - elasticsearch
