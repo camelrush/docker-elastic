@@ -7,5 +7,5 @@ setup.template.name: "filebeat"
 setup.template.pattern: "filebeat-*"
 
 output.elasticsearch:
-  hosts: ["http://elasicsearch:9200"]
+  hosts: ${ELASTICSEARCH_HOSTS}
   index: "filebeat-%{[agent.version]}-%{+yyyy.MM.dd}"
